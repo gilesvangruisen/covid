@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Covid-19 Case Growth</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <link href="./main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="max-w-2xl mx-auto my-10">
+      <h1 class="font-bold text-2xl text-gray-800 mb-2">
+        COVID-19 Case Growth
+        <span class="text-gray-600 text-sm pl-2 font-normal">
+          Last updated 16 April, 2020.
+        </span>
+      </h1>
+      <p class="text-gray-600 mb-3">
+        Real-time effective reproduction rate (<em class="font-bold">Rt</em>) of
+        the novel coronavirus, COVID-19.
+        <a href="#about" class="text-blue-500"
+          >What is <em class="font-bold">Rt</em>?</a
+        >
+      </p>
+    </div>
+    <div class="mx-auto max-w-5xl mb-16">
+      <h2 class="text-gray-700 text-lg font-medium text-center">
+        Latest <em class="italic font-bold">Rt</em> Estimate by US State
+      </h2>
+      <div id="us-states-box-plot"></div>
+    </div>
+    <div class="mx-auto max-w-6xl mb-16">
+      <h2 class="text-gray-700 text-lg font-medium text-center mb-4">
+        Real-time <em class="italic font-bold">Rt</em> Estimate by US State
+      </h2>
+      <div id="us-states-rt-plots"></div>
+    </div>
+    <div class="max-w-2xl mx-auto py-8" id="about">
+      <h2 class="font-bold text-lg text-gray-800 mb-2">
+        What is <em class="italic">Rt</em>?
+      </h2>
+      <p class="text-gray-600 mb-3">
+        <em class="italic font-bold">Rt</em> is the real-time effective
+        reproduction rate of a virus, in this case COVID-19. The reproduction
+        rate tells us the number of secondary infections to expect, on average,
+        as a result of a single infected person spreading the virus. In other
+        words, <em class="italic font-bold">Rt</em> tells us how quickly the
+        virus is spreading at a specific point in time.
+      </p>
+      <p class="text-gray-600 mb-3">
+        An <em class="italic font-bold">Rt</em> of one or greater means that the
+        virus will spread rapidly until a majority of the population has been
+        infected. An <em class="italic font-bold">Rt</em> of less than one means
+        that the virus will spread more slowly and ultimately disappear before
+        it's had the chance to infect everyone.
+      </p>
+      <p class="text-gray-600 mb-6">
+        Understanding and tracking <em class="italic font-bold">Rt</em> at the
+        regional and local levels are critical to managing outbreaks of
+        COVID-19. Depending on how well we suppress this first wave, we can
+        reasonably expect to see continued outbreaks across the country and
+        world until a vaccine is developed and rolled out.
+        <em class="italic font-bold">Rt</em>
+      </p>
+      <h2 class="font-bold text-lg text-gray-800 mb-2">
+        Where did this data come from?
+      </h2>
+      <p class="text-gray-600 mb-2">
+        The raw data came from the publicly available
+        <a
+          href="https://github.com/nytimes/covid-19-data"
+          class="text-blue-500 font-medium"
+          >COVID-19 Data repository</a
+        >
+        which is published and updated daily by
+        <a href="https://www.nytimes.com/" class="text-blue-500 font-medium"
+          >The New York Times</a
+        >. The analysis of real-time effective reproduction comes from Kevin
+        Systrom's work titled
+        <a
+          href="http://systrom.com/blog/the-metric-we-need-to-manage-covid-19/"
+          class="text-blue-500 font-medium"
+          >The Metric We Need to Manage COVID-19</a
+        >, which is itself based on an approach set forth in a peer-reviewed
+        paper titled
+        <a
+          href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0002185"
+          class="text-blue-500 font-medium"
+          >Real Time Bayesian Estimation of the Epidemic Potential of Emerging
+          Infectious Diseases</a
+        >
+        by Luís M. A. Bettencourt and Ruy M. Ribeiro.
+      </p>
+      <p class="text-gray-600 mb-6">
+        Systrom's code to estimate the effective transmission rates of COVID-19
+        can be found
+        <a
+          href="https://github.com/k-sys/covid-19"
+          class="text-blue-500 font-medium"
+          >on his GitHub profile</a
+        >, and the code used to generate these visualizations will be available
+        soon on my
+        <a href="https:/github.com/gilesvangruisen">GitHub profile</a>.
+      </p>
+      <h2 class="font-bold text-lg text-gray-800 mb-2">
+        Who are you?
+      </h2>
+      <p class="text-gray-600 mb-3">
+        My name is <a href="https://giles.vg/">Giles Van Gruisen</a>. I'm a
+        software developer and photographer based in New England, and I spend
+        most of my time building data-driven software systems for work and fun.
+        I enjoy exploring, analayzing, and visualizing interesting datasets to
+        learn more about how the world works.
+      </p>
+      <p class="text-gray-600 mb-3">
+        <em class="font-bold">I am by no means an epidemiologist</em>.
+      </p>
+      <p class="text-gray-600 mb-6">
+        With this COVID-19 report, I'm doing my best to ensure the analysis is
+        rooted in well-resesarched methods for modeling infectious diseases. I
+        am trying to avoid speculative analysis or extrapolation beyond what is
+        reasonable given the data available. If you have any questions,
+        comments, or suggestions, please feel free to get in touch
+        <a
+          href="https://twitter/gilesvangruisen"
+          class="text-blue-500 font-medium"
+          >on Twitter</a
+        >
+        or
+        <a href="mailto:info@giles.vg" class="text-blue-500 font-medium"
+          >via email</a
+        >.
+      </p>
+    </div>
+    <script src="./bundle.js" type="text/javascript"></script>
+  </body>
+</html>
