@@ -1,4 +1,4 @@
-const STATE_CASES = "/states.json"
+const STATE_CASES = "states.json"
 
 export function cacheFetch(URL) {
   if (!window.cache) {
