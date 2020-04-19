@@ -21,23 +21,14 @@ class CaseReport:
     def _prepare_cases(self, cases):
         new_cases = cases.diff()
 
-        smoothed = new_cases.rolling(7,
+        smoothed = new_cases.rolling(9,
             win_type='gaussian',
             min_periods=1,
-            center=True).mean(std=2).round()
+            center=True).mean(std=3).round()
 
-        zeros = smoothed.index[smoothed.eq(0)]
-        if len(zeros) == 0:
-            idx_start = 0
-        else:
-            last_zero = zeros.max()
-            idx_start = smoothed.index.get_loc(last_zero) + 1
+        idx_start = np.searchsorted(smoothed, 10)
 
-        # End at last non-zero new cases, zero is likely lag in data recording
-        nonzero = new_cases.index[new_cases.ne(0)]
-        idx_end = smoothed.index.get_loc(nonzero[-1])
-
-        smoothed = smoothed.iloc[idx_start:idx_end]
+        smoothed = smoothed.iloc[idx_start:]
         original = new_cases.loc[smoothed.index]
 
         return original, smoothed
@@ -104,7 +95,7 @@ class CaseReport:
 
         # Broadcast the probability distribution to an artificial set of samples by
         # repeating each index value N times where N = probability sample_precision
-        sample_precision = 1000000
+        sample_precision = 100000
         samples_repeats = np.array(pmf.values * sample_precision)#.astype(int)
         samples = np.repeat(pmf.index, np.array(pmf.values * sample_precision).astype(int))
 
@@ -113,6 +104,19 @@ class CaseReport:
 
         low = hdi[0]
         high = hdi[1]
+
+        # cumsum = np.cumsum(pmf.values)
+        # best = None
+        # for i, value in enumerate(cumsum):
+        #     for j, high_value in enumerate(cumsum[i+1:]):
+        #         if (high_value-value > p) and (not best or j<best[1]-best[0]):
+        #             best = (i, i+j+1)
+        #             break
+
+        # _low = pmf.index[best[0]]
+        # _high = pmf.index[best[1]]
+
+        # print([_low - low, _high - high])
 
         return pd.Series([low, high], index=['Rt_low', 'Rt_high'])
 
@@ -125,6 +129,7 @@ class CaseReport:
 
         # Look into why you shift -1
         result = pd.DataFrame(original)
+
 
         result['date'] = original.index
         result['cases'] = self.cases

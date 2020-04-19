@@ -50,14 +50,14 @@ export default class USStatesRtPlots extends React.Component {
     return (
       <div className="flex flex-col items-center justify-start">
         <label className="block text-sm font-medium leading-5 text-gray-700">
-          Search States
+          Filter and compare states
         </label>
         <div className="mt-1 b-4 relative rounded-md shadow-sm">
           <input
             type="text"
             className="form-input block w-64 sm:text-sm sm:leading-5"
             value={this.state.search}
-            placeholder="e.g. Rhode Island"
+            placeholder="e.g. Rhode Island, New York"
             onChange={(e) => this.handleSearch(e)}
           />
         </div>

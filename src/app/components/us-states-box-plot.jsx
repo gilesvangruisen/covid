@@ -238,7 +238,7 @@ export default class USStatesBoxPlot extends React.Component {
               x={5}
               className="text-xs text-gray-700 font-bold fill-current antialiased"
             >
-              {active.state} ({moment(active.date).format("D MMM 'YY")})
+              {active.state} ({moment.utc(active.date).format("D MMM 'YY")})
             </text>
             <text
               className="text-xs text-gray-700 fill-current antialiased"

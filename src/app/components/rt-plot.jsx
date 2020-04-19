@@ -44,6 +44,9 @@ export default class RtPlot extends React.Component {
   }
 
   setActive(active) {
+    if (active) {
+      console.log(active)
+    }
     this.setState({ active })
   }
 
@@ -91,6 +94,7 @@ export default class RtPlot extends React.Component {
       accum.push({
         date,
         rt: this.state.cases.Rt[i],
+        new_cases_smooth: this.state.cases.new_cases_smooth[i],
         new_cases: this.state.cases.new_cases_smooth[i],
         rt_low: this.state.cases.Rt_low[i],
         rt_high: this.state.cases.Rt_high[i],
@@ -129,6 +133,9 @@ export default class RtPlot extends React.Component {
     const xTicksMonth = x.ticks(d3.timeWeek.every(2))
     const xTicksDay = x.ticks(d3.timeDay.every(1))
 
+    const labelX = 66
+    const dataX = 72
+
     return (
       <svg width={width} height={height} className="m-2">
         <g
@@ -163,22 +170,7 @@ export default class RtPlot extends React.Component {
           />
           <g>
             {this.rt.map((day, i) => {
-              const { date, rt, new_cases } = day
-              const rt_x = x(date)
-              const rt_y = y(rt)
-
-              return (
-                <circle
-                  cx={rt_x}
-                  cy={rt_y}
-                  r={3}
-                  fill={newCases(new_cases)}
-                  key={date}
-                />
-              )
-            })}
-            {this.rt.map((day, i) => {
-              const { date, rt, new_cases } = day
+              const { date, rt, new_cases_smooth } = day
               const rt_x = x(date)
               const rt_y = y(rt)
 
@@ -188,8 +180,8 @@ export default class RtPlot extends React.Component {
                   onMouseLeave={() => this.setActive()}
                   cx={rt_x}
                   cy={rt_y}
-                  r={6}
-                  fill="transparent"
+                  r={3}
+                  fill={newCases(new_cases_smooth)}
                   key={date}
                 />
               )
@@ -234,7 +226,7 @@ export default class RtPlot extends React.Component {
                   dy="1.8em"
                   textAnchor="middle"
                 >
-                  {moment(tick).format("D MMM")}
+                  {moment.utc(tick).format("D MMM")}
                 </text>
               </g>
             )
@@ -281,62 +273,81 @@ export default class RtPlot extends React.Component {
         </g>
         {active != null && (
           <g
-            transform={`translate(${INSET.left + x_width - 90}, ${INSET.top})`}
+            transform={`translate(${INSET.left + x_width - 110}, ${INSET.top})`}
           >
-            <rect x={0} y={-20} height="90" width="90" fill="white" />
+            <rect x={0} y={-20} height="110" width="110" fill="white" />
 
             <text
               textAnchor="middle"
               className="text-xs text-gray-700 font-bold fill-current antialiased"
-              x={45}
+              x={55}
               y={0}
             >
-              {moment(active.date).format("D MMM YY")}
+              {moment.utc(active.date).format("D MMM YY")}
             </text>
             <text
+              textAnchor="end"
               className="text-xs text-gray-700 fill-current antialiased"
-              x={5}
+              x={labelX}
               y={20}
             >
               Rt (likely):
             </text>
             <text
+              textAnchor="end"
               className="text-xs text-gray-700 fill-current antialiased"
-              x={5}
+              x={labelX}
               y={40}
             >
               Rt (low):
             </text>
             <text
+              textAnchor="end"
               className="text-xs text-gray-700 fill-current antialiased"
-              x={5}
+              x={labelX}
               y={60}
             >
               Rt (high):
             </text>
             <text
               textAnchor="end"
+              className="text-xs text-gray-700 fill-current antialiased"
+              x={labelX}
+              y={80}
+            >
+              New cases:
+            </text>
+            <text
+              textAnchor="start"
               className="text-xs text-gray-700 font-bold fill-current antialiased"
-              x={85}
+              x={dataX}
               y={20}
             >
               {active.rt}
             </text>
             <text
-              textAnchor="end"
+              textAnchor="start"
               className="text-xs text-gray-700 font-bold fill-current antialiased"
-              x={85}
+              x={dataX}
               y={40}
             >
               {active.rt_low}
             </text>
             <text
-              textAnchor="end"
+              textAnchor="start"
               className="text-xs text-gray-700 font-bold fill-current antialiased"
-              x={85}
+              x={dataX}
               y={60}
             >
               {active.rt_high}
+            </text>
+            <text
+              textAnchor="start"
+              className="text-xs text-gray-700 font-bold fill-current antialiased"
+              x={dataX}
+              y={80}
+            >
+              {active.new_cases}
             </text>
           </g>
         )}

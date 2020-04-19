@@ -4,7 +4,9 @@ const TerserPlugin = require("terser-webpack-plugin")
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const CssnanoPlugin = require("cssnano-webpack-plugin")
 
+const CompressionPlugin = require("compression-webpack-plugin")
 const devMode = process.env.NODE_ENV !== "production"
 
 module.exports = {
@@ -34,7 +36,7 @@ module.exports = {
   },
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin()],
+    minimizer: [new TerserPlugin(), new CssnanoPlugin()],
   },
   devServer: {
     stats: {
@@ -51,5 +53,5 @@ module.exports = {
       index: "index.html",
     },
   },
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [new MiniCssExtractPlugin(), new CompressionPlugin()],
 }
