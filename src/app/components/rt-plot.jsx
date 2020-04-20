@@ -283,7 +283,7 @@ export default class RtPlot extends React.Component {
               x={55}
               y={0}
             >
-              {moment.utc(active.date).format("D MMM YY")}
+              {moment.utc(active.date).format("D MMM 'YY")}
             </text>
             <text
               textAnchor="end"

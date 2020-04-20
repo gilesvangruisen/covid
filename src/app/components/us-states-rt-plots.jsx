@@ -23,10 +23,10 @@ export default class USStatesRtPlots extends React.Component {
 
     return this.state.states.filter((state) =>
       search.split(",").reduce((accum, term) => {
-        const trimmed = term.trim()
+        const trimmed = term.trim().toLowerCase()
         return (
           accum ||
-          (trimmed != "" && state.state.toLowerCase().indexOf(term.trim()) >= 0)
+          (trimmed != "" && state.state.toLowerCase().indexOf(trimmed) >= 0)
         )
       }, false)
     )
