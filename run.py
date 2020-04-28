@@ -88,7 +88,7 @@ def run_states():
 
         states_json.append(state_json)
 
-    with open('states.json', 'w') as outfile:
+    with open('dist/states.json', 'w') as outfile:
         json.dump(states_json, outfile)
 
 
