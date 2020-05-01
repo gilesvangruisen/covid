@@ -13,7 +13,7 @@ NYT_STATE_COLS = ['date','state','fips','cases','deaths']
 def get_county_cases():
     file = os.path.join(os.getcwd(), LOCAL_COUNTY_CSV)
 
-    data = pd.read_csv(file,
+    data = pd.read_csv(NYT_COUNTY_CSV,
         names=NYT_COUNTY_COLS,
         skiprows=1,
         index_col=['state', 'county', 'date'],
@@ -25,7 +25,7 @@ def get_county_cases():
 def get_state_cases():
     file = os.path.join(os.getcwd(), LOCAL_STATE_CSV)
 
-    data = pd.read_csv(file,
+    data = pd.read_csv(NYT_STATE_CSV,
         names=NYT_STATE_COLS,
         skiprows=1,
         index_col=['state', 'date'],
