@@ -75,7 +75,7 @@ export default class RtPlot extends React.Component {
   get y() {
     return d3
       .scaleLinear()
-      .domain([0, 5])
+      .domain([0, 3])
       .range([this.y_height, 0])
   }
 
